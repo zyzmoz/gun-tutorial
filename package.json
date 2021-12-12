@@ -1,0 +1,23 @@
+{
+  "name": "gun-tutorial",
+  "version": "1.0.0",
+  "description": "GUN Studies",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyzmoz/gun-tutorial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyzmoz/gun-tutorial/issues"
+  },
+  "homepage": "https://github.com/zyzmoz/gun-tutorial#readme",
+  "dependencies": {
+    "gun": "^0.2020.1235"
+  }
+}

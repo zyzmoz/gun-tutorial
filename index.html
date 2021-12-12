@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GUN Tutorial</title>
+  </head>
+  <body>
+    <h1>ToDo</h1>
+    <form id="sign">
+      <label for="username">Username</label>
+      <input id="username" placeholder="Username" type="text" />
+      <label for="pwd">Password</label>
+      <input type="password" id="pwd" />
+
+      <button id="signup">Sign up</button>
+      <button id="signin">Sign in</button>
+    </form>
+
+    <form>
+      <input type="text" id="message" />
+      <button id="sendmessage">Send Message</button>
+    </form>
+
+    <div id="output"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/examples/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+
+    <script>
+      // Logic
+      var gun = Gun(["http://localhost:8765/gun"]);
+      var user = gun.user();
+
+      signup.addEventListener("click", (e) => {
+        e.preventDefault();
+        user.create(username.value, pwd.value);
+      });
+
+      signin.addEventListener("click", (e) => {
+        e.preventDefault();
+        user.auth(username.value, pwd.value);
+      });
+
+      sendmessage.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (!user.is) {
+          return;
+        }
+        const { pub } = user.is;
+
+        gun.get("messages").set({ userPub: pub, message: message.value });
+        message.value = "";
+      });
+      const updateUI = ({ userPub, message }, id) => {
+        const usr = gun
+          .user(userPub)
+          .get("alias")
+          .once((userName) => {
+            console.log({ userName });
+            output.innerHTML += `<p><b>${userName}:</b> ${message}</p>`;
+          });
+      };
+
+      gun.on("auth", () => {
+        $("#sign").hide();
+        gun.get("messages").map().once(updateUI);
+      });
+    </script>
+  </body>
+</html>
