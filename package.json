@@ -4,15 +4,17 @@
   "description": "GUN Studies",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:web": "npx http-serve .",
+    "start:gun": "npm start --prefix ./node_modules/gun",
+    "test": "npm test --prefix ./cypress-test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zyzmoz/gun-tutorial.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Daniel Cunha",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zyzmoz/gun-tutorial/issues"
   },
